@@ -18,12 +18,17 @@ local function getPlayersNearby(coords)
 
     return list
 end
+function GetPlyDiscord(src)
+    local discord = GetPlayerIdentifierByType(src, 'discord')
+    return discord and ('<@%s>'):format(discord:gsub('discord:', '')) or 'N/A'
+end
 
 function OnPlayerLoaded(source)
     local src = source
     local player = GetPlayer(src)
     if not player then return end
-    cachedCids[src] = { cid = GetPlyIdentifier(player), name = GetCharacterName(player), license = GetPlyLicense(player)}
+    cachedCids[src] = { cid = GetPlyIdentifier(player), name = GetCharacterName(player), license = GetPlyLicense(player), discord =
+    GetPlyDiscord(src) }
 end
 
 function OnPlayerUnload(source)
@@ -54,6 +59,7 @@ AddEventHandler('playerDropped', function(reason)
         id = src,
         cid = cachedCids[src].cid,
         license = cachedCids[src].license,
+        discord = cachedCids[src].discord,
         name = cachedCids[src].name,
         reason = reason or 'Unknown Reason',
         coords = vec4(coords.x, coords.y, coords.z-1.0, heading),

@@ -79,7 +79,7 @@ RegisterNetEvent('randol_combatlog:client:onDropped', function(data)
                         description = ('Reason: %s'):format(data.reason),
                         icon = 'circle-info',
                         onSelect = function()
-                            local info = ('**Character Name**: %s\n**ID**: %s\n**License**: %s\n**Reason**: %s'):format(data.name, data.id, data.license, data.reason)
+                            local info = ('**Character Name**: %s\n**ID**: %s\n**License**: %s\n**Discord**: %s\n**Reason**: %s'):format(data.name, data.id, data.license, data.discord, data.reason)
                             lib.setClipboard(info)
                             lib.notify({ title = 'Player Information', description = 'Copied the player\'s information.', position = 'center-right'})
                         end,
